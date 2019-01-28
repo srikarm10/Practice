@@ -3,25 +3,35 @@ class Solution {
         String subs = "";
 		String st = "";
 		int subsLen = 0;
-        for(int i=0; i< s.length(); i++){
+        for(int i=0;i<s.length();i++){
 			char ch = s.charAt(i);
-			if(st.indexOf(ch) == -1){
-				st += Character.toString(ch);
-            }else if(st.indexOf(ch) > -1){
-				if(subs.length() < st.length()){
-					subs = st;
+			//System.out.println(ch);
+			if(st.indexOf(ch)==-1){
+				st+=ch;
+				//subsLen = st.length();
+			}else if(st.indexOf(ch)!= -1){
+				int chPos = st.indexOf(ch);
+				if(i != s.length()-1) {
+					st+=ch;
+				}
+				//System.out.println(chPos+"==="+st.substring(0, chPos+1));
+				if(subs.length()<st.substring(0, chPos+1).length()){
+					subs=st.substring(0,chPos+1);
+					//System.out.println("subs==="+subs);
 					subsLen = subs.length();
-					st = Character.toString(ch); 
+					//preparing new substring by clearing existing
+					st=st.substring(chPos+1);//+Character.toString(ch);
+					//System.out.println(st.substring(chPos));
 				}
 			}
 		}
-        if(st != "" && subsLen == 0){
-            subsLen = st.length();
-        }
+		if(subsLen < st.length()){
+			subsLen = st.length(); 
+		}
 		return subsLen;
     }
     
     public static void main(String args[]){
-        System.out.println(lengthOfLongestSubstring(" "));
+        System.out.println(lengthOfLongestSubstring("bbbbb"));
     }
 }
